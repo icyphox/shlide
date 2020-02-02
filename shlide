@@ -24,7 +24,6 @@ longest_line() {
     local IFS=
     while read -r line; do
         l=$(ansi_filter $(colorify "$line"))
-        echo "$l" >> log.txt
         if [ "${#l}" -gt "$max" ]; then max="${#l}"; fi
     done < "$1"
     printf '%s\n' "$max"
@@ -94,6 +93,7 @@ display() {
 }
 
 die() {
+    printf '\e[2J'
     printf '\e[?25h'
     exit 0
 }
@@ -125,7 +125,6 @@ main() {
             read -rsn1 input
             case "$input" in
                 "j"|"n"|"q")
-                    printf '\e[2J'
                     die
                     ;;
                 *)
