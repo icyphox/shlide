@@ -19,8 +19,20 @@ lstrip() {
     printf '%s\n' "${1##$2}"
 }
 
-get_term_size() {
+lines() {
+    mapfile -tn 0 lines < "$1"
+    printf '%s\n' "${#lines[@]}"
+}
 
+longest_line() {
+    max=0 IFS=
+    while read -r line; do
+        if [ "${#line}" -gt "$max" ]; then max="${#line}"; fi
+    done < "$1"
+    printf '%s\n' "$max"
+}
+
+get_term_size() {
     # POSIX alternative to 'checkwinsize'.
     read -r LINES COLUMNS < <(stty -F /dev/tty size)
 
@@ -45,11 +57,15 @@ display() {
     printf '\e[2J'
 
     # Move the cursor to the center.
-    get_term_size
+    read -r LINES COLUMNS < <(stty -F /dev/tty size)
+    height=$(lines "$2")
+    width=$(longest_line "$2")
 
+    echo "$height $width" >> log.txt
     # Rough estimates for the true center.
-    ((l=0))
-    ((c=0))
+    ((l=$LINES/2 - $height/2))
+    ((c=$COLUMNS/2 - $width/2))
+
     printf '\e[%s;%sH' "$l" "$c"
 
     while IFS= read -r line; do
@@ -73,7 +89,7 @@ main() {
         f_contents="$(<$f)"
         display "$f_contents" "$f"
     done
-               
+
     # Return the cursor.
     printf '\e[?25h'
 
