@@ -24,7 +24,6 @@ longest_line() {
     local IFS=
     while read -r line; do
         l=$(ansi_filter $(colorify "$line"))
-        echo "$l" >> log.txt
         if [ "${#l}" -gt "$max" ]; then max="${#l}"; fi
     done < "$1"
     printf '%s\n' "$max"
@@ -83,7 +82,7 @@ display() {
         l=$(colorify "$line")
         printf '%s' "$l"
         case $line in
-            "" | *"\n"*)
+            "" | "\n")
                 ((++reduce));;
         esac
         # Move down and back after each print.
