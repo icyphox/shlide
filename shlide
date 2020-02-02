@@ -51,11 +51,16 @@ display() {
     printf '\e[%s;%sH' "$l" "$c"
 
     while IFS= read -r line; do
+        reduce=0
         # Print the contents of the slide file, 
         # line by line.
         printf "%s" "$line"
+        case $line in
+            "" | *"\n"*)
+                ((++reduce));;
+        esac
         # Move down and back after each print.
-        printf '\e[%sD\e[B' "${#line}"
+        printf '\e[%sD\e[B' "$((${#line} - $reduce))"
     done <<< "$slide_contents"
 
 }
