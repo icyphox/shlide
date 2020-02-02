@@ -28,15 +28,17 @@ longest_line() {
 }
 
 colorify() {
+    # 'eval' hack to achieve substitution for colors.
     eval "declare dummy=\"$1\""
     printf '%b' "$dummy"
 }
 
+# Filter out color sequences.
 shopt -s extglob
 ansi_filter() {
-  local IFS=
-  echo "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
-  #/" a little fix to keep my vim syntax hl sane
+    local IFS=
+    echo "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
+    #" A little fix to prevent vim syntax highlighting from breaking.
 }
 
 
@@ -88,6 +90,11 @@ display() {
 
 }
 
+die() {
+    printf '\e[?25h'
+    exit 0
+}
+
 display_end() {
     read -r LINES COLUMNS < <(stty -F /dev/tty size)
     ((l=$LINES/2))
@@ -105,6 +112,10 @@ main() {
     while true; do
         # Clear the screen.
         printf '\e[2J'
+
+        # Capture Ctrl+C.
+        trap 'die' INT
+
         # Display END reached prompt, and then exit
         [[ "$i" -eq "${#slides[@]}" ]] && {
             display_end
@@ -112,8 +123,7 @@ main() {
             case "$input" in
                 "j"|"n"|"q")
                     printf '\e[2J'
-                    printf '\e[?25h'
-                    exit
+                    die
                     ;;
                 *)
                     ((--i))
@@ -136,8 +146,7 @@ main() {
                 ;;
             "q")
                 # Return the cursor on exit.
-                printf '\e[?25h'
-                exit
+                die
                 ;;
         esac
     done
