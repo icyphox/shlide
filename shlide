@@ -75,18 +75,32 @@ display() {
         printf '\e[%sD\e[B' "${#line}"
     done <<< "$slide_contents"
 
-    # Change slide on space.
-    read -rsn1 input
-    #navigate "$input"
 }
 
 main() {
-    
-    slides_dir="${1:-./}"
 
-    for f in "$slides_dir"/[0-9]*.txt; do
-        f_contents="$(<$f)"
-        display "$f_contents" "$f"
+    slides_dir="${1:-./}"
+    slides=("$slides_dir"*)
+    i=0
+    while true; do
+        if [ "$i" -gt "$((${#slides[@]} - 1))" ]; then
+            printf '\e[?25h'
+            exit;
+        fi
+        display "$(<${slides[$i]})" "${slides[$i]}"
+        read -rsn1 input
+        case "$input" in 
+            "j"|"n")
+                ((++i))
+                ;;
+            "k"|"p")
+                ((--i))
+                ;;
+            "q")
+                printf '\e[?25h'
+                exit
+                ;;
+        esac
     done
 
     # Return the cursor.
