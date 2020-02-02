@@ -60,6 +60,15 @@ display() {
 
 }
 
+display_end() {
+    read -r LINES COLUMNS < <(stty -F /dev/tty size)
+    ((l=$LINES/2))
+    ((c=$COLUMNS/2 - 8))
+    printf '\e[2J'
+    printf '\e[0;%sH' "$c"
+    printf 'END. Press q to quit'
+}
+
 main() {
 
     slides_dir="${1:-./}"
@@ -67,10 +76,20 @@ main() {
     i=0
     while true; do
 
-        # Exit after last slide.
-        [[ "$i" -gt "$((${#slides[@]} - 1))" ]] && {
-            printf '\e[?25h'
-            exit
+        # Display END reached prompt, and then exit
+        [[ "$i" -eq "${#slides[@]}" ]] && {
+            display_end
+            read -rsn1 input
+            case "$input" in
+                "j"|"n"|"q")
+                    printf '\e[2J'
+                    printf '\e[?25h'
+                    exit
+                    ;;
+                *)
+                    ((--i))
+                    ;;
+            esac
         }
 
         # Don't go below 0.
