@@ -20,9 +20,12 @@ lines() {
 }
 
 longest_line() {
-    max=0 IFS=
+    max=0 
+    local IFS=
     while read -r line; do
-        if [ "${#line}" -gt "$max" ]; then max="${#line}"; fi
+        l=$(ansi_filter $(colorify "$line"))
+        echo "$l" >> log.txt
+        if [ "${#l}" -gt "$max" ]; then max="${#l}"; fi
     done < "$1"
     printf '%s\n' "$max"
 }
