@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# 
+# Usage: shlide path/to/slides/
+# Each slide is a textfile under path/to/slides
+
+# Color definitions
+
+#BLK="\e[30m"
+#RED="\e[31m"
+#GRN="\e[32m"
+#YLW="\e[33m"
+#BLU="\e[34m"
+#PUR="\e[35m"
+#CYN="\e[36m"
+
+lstrip() {
+    # See: https://github.com/dylanaraps/pure-bash-bible#strip-pattern-from-start-of-string
+    printf '%s\n' "${1##$2}"
+}
+
+get_term_size() {
+
+    # POSIX alternative to 'checkwinsize'.
+    read -r LINES COLUMNS < <(stty -F /dev/tty size)
+
+}
+
+# navigate() {
+#     case "$1" in
+#         "j") 
+# }
+
+display() {
+    # 1 - slide contents
+    # 2 - slide name
+
+    slide_contents="$1"
+    # slide_name="$(lstrip $2 "[0-9]-")"
+
+    # Hides the cursor.
+    printf '\e[?25l'
+
+    # Clear the screen.
+    printf '\e[2J'
+
+    # Move the cursor to the center.
+    get_term_size
+
+    # Rough estimates for the true center.
+    ((l=0))
+    ((c=0))
+    printf '\e[%s;%sH' "$l" "$c"
+
+    while IFS= read -r line; do
+        # Print the contents of the slide file, 
+        # line by line.
+        printf '%s' "$line"
+        # Move down and back after each print.
+        printf '\e[%sD\e[B' "${#line}"
+    done <<< "$slide_contents"
+
+    # Change slide on space.
+    read -rsn1 input
+    #navigate "$input"
+}
+
+main() {
+    
+    slides_dir="$1"
+
+    for f in "$slides_dir"/[0-9]*.txt; do
+        f_contents="$(<$f)"
+        display "$f_contents" "$f"
+    done
+               
+    # Return the cursor.
+    printf '\e[?25h'
+
+}
+
+main "$@"
