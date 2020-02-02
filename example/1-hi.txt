@@ -1,6 +1,6 @@
 HI THERE
 
-Welcome to $CYNshlide$RST. Here are a few bullet points:
+Welcome to ${GRN}shlide${RST}. Here are a few bullet points:
 
 - first point
 - second point
