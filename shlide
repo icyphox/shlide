@@ -36,7 +36,9 @@ shopt -s extglob
 ansi_filter() {
   local IFS=
   echo "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
+  #/" a little fix to keep my vim syntax hl sane
 }
+
 
 display() {
     # 1 - slide contents
