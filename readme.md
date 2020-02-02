@@ -6,8 +6,8 @@
 ## Features
 
 - All slides are plain-text files. 
-- Navigation using `j` / `k` or `n` / `p`
-- Colors and bold/italic formatting using terminal escape sequences.
+- Navigation using `j` / `k` or `n` / `p`.
+- Text color and style formatting. 
 - Pure bash.
 
 ## Usage
