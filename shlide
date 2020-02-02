@@ -5,13 +5,13 @@
 
 # Color definitions
 
-BLK="\e[30m"
-RED="\e[31m"
-GRN="\e[32m"
-YLW="\e[33m"
-BLU="\e[34m"
-PUR="\e[35m"
-CYN="\e[36m"
+BLK="\e[38;5;30m"
+RED="\e[38;5;31m"
+GRN="\e[38;5;32m"
+YLW="\e[38;5;33m"
+BLU="\e[38;5;34m"
+PUR="\e[38;5;35m"
+CYN="\e[38;5;36m"
 RST="\e[0m"
 
 lines() {
@@ -25,6 +25,17 @@ longest_line() {
         if [ "${#line}" -gt "$max" ]; then max="${#line}"; fi
     done < "$1"
     printf '%s\n' "$max"
+}
+
+colorify() {
+    eval "declare dummy=\"$1\""
+    printf '%b' "$dummy"
+}
+
+shopt -s extglob
+ansi_filter() {
+  local IFS=
+  echo "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
 }
 
 display() {
@@ -62,13 +73,15 @@ display() {
         reduce=0
         # Print the contents of the slide file, 
         # line by line.
-        printf "%s" "$line"
+        l=$(colorify "$line")
+        printf '%s' "$l"
         case $line in
             "" | *"\n"*)
                 ((++reduce));;
         esac
         # Move down and back after each print.
-        printf '\e[%sD\e[B' "$((${#line} - $reduce))"
+        l=$(ansi_filter "$l")
+        printf '\e[%sD\e[B' "$((${#l} - $reduce))"
     done <<< "$slide_contents"
 
 }
