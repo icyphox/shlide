@@ -30,6 +30,8 @@ longest_line() {
 display() {
     # 1 - slide contents
     # 2 - slide name
+    # 3 - current slide nr.
+    # 4 - total nr. of slides
 
     slide_contents="$1"
 
@@ -39,8 +41,14 @@ display() {
     # Clear the screen.
     printf '\e[2J'
 
-    # Move the cursor to the center.
-    read -r LINES COLUMNS < <(stty -F /dev/tty size)
+    # Get screen size
+    shopt -s checkwinsize; (:;:)
+
+    # Write slide number at bottom left
+    printf '\e[H'
+    printf '\e[%sB%s/%s' "$LINES" "$(($3+1))" "$4"
+
+    # Custom calculations to center text
     height=$(lines "$2")
     width=$(longest_line "$2")
 
@@ -80,7 +88,8 @@ main() {
     slides=("$slides_dir"/[0-9]*.txt)
     i=0
     while true; do
-
+        # Clear the screen.
+        printf '\e[2J'
         # Display END reached prompt, and then exit
         [[ "$i" -eq "${#slides[@]}" ]] && {
             display_end
@@ -101,7 +110,7 @@ main() {
         [[ "$i" -lt 0 ]] && i=0
 
         # Navigate on j/k/n/p and quit on q.
-        display "$(<${slides[$i]})" "${slides[$i]}"
+        display "$(<${slides[$i]})" "${slides[$i]}" "$i" "${#slides[@]}"
         read -rsn1 input
         case "$input" in 
             "j"|"n")
