@@ -82,7 +82,7 @@ display() {
         l=$(colorify "$line")
         printf '%s' "$l"
         case $line in
-            "" | *"\n"*)
+            "" | "\n")
                 ((++reduce));;
         esac
         # Move down and back after each print.
