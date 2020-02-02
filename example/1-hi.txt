@@ -1,6 +1,6 @@
 HI THERE
 
-Welcome to shlide. Here are a few bullet points:
+Welcome to $CYNshlide$RST. Here are a few bullet points:
 
 - first point
 - second point

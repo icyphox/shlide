@@ -5,13 +5,14 @@
 
 # Color definitions
 
-#BLK="\e[30m"
-#RED="\e[31m"
-#GRN="\e[32m"
-#YLW="\e[33m"
-#BLU="\e[34m"
-#PUR="\e[35m"
-#CYN="\e[36m"
+BLK="\e[30m"
+RED="\e[31m"
+GRN="\e[32m"
+YLW="\e[33m"
+BLU="\e[34m"
+PUR="\e[35m"
+CYN="\e[36m"
+RST="\e[0m"
 
 lstrip() {
     # See: https://github.com/dylanaraps/pure-bash-bible#strip-pattern-from-start-of-string
@@ -54,7 +55,7 @@ display() {
     while IFS= read -r line; do
         # Print the contents of the slide file, 
         # line by line.
-        printf '%s' "$line"
+        printf "%s" "$line"
         # Move down and back after each print.
         printf '\e[%sD\e[B' "${#line}"
     done <<< "$slide_contents"
