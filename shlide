@@ -61,7 +61,6 @@ display() {
     height=$(lines "$2")
     width=$(longest_line "$2")
 
-    echo "$height $width" >> log.txt
     # Rough estimates for the true center.
     ((l=$LINES/2 - $height/2))
     ((c=$COLUMNS/2 - $width/2))
