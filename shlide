@@ -82,7 +82,7 @@ display() {
 
 main() {
     
-    slides_dir="$1"
+    slides_dir="${1:-./}"
 
     for f in "$slides_dir"/[0-9]*.txt; do
         f_contents="$(<$f)"
