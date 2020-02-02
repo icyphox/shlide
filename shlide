@@ -71,7 +71,7 @@ display_end() {
     ((c=$COLUMNS/2 - 8))
     printf '\e[2J'
     printf '\e[0;%sH' "$c"
-    printf 'END. Press q to quit'
+    printf 'END. Press q to quit.'
 }
 
 main() {
