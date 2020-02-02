@@ -1,8 +1,8 @@
 HI THERE
 
-Welcome to ${GRN}shlide${RST}. ${YLW}Here${RST} are a few bullet points:
+Welcome to ${GRN}shlide${RST}. ${STR}Here${RST} are a few bullet points:
 
 - first point
 - second point
-    * sub point
-    * ${RED}another${RST} sub point
+    * ${ITA}sub point${RST}
+    * ${BLD}another${RST} sub point

@@ -3,8 +3,7 @@
 # Usage: shlide path/to/slides/
 # Each slide is a textfile under path/to/slides
 
-# Color definitions
-
+# Color definitions.
 BLK="\e[38;5;30m"
 RED="\e[38;5;31m"
 GRN="\e[38;5;32m"
@@ -13,6 +12,16 @@ BLU="\e[38;5;34m"
 PUR="\e[38;5;35m"
 CYN="\e[38;5;36m"
 RST="\e[0m"
+
+# Other formatting.
+BLD="\e[1m"
+DIM="\e[2m"
+ITA="\e[3m"
+UND="\e[4m"
+FLS="\e[5m"
+REV="\e[7m"
+INV="\e[8m"
+STR="\e[9m"
 
 lines() {
     mapfile -tn 0 lines < "$1"
