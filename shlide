@@ -14,11 +14,6 @@ PUR="\e[35m"
 CYN="\e[36m"
 RST="\e[0m"
 
-lstrip() {
-    # See: https://github.com/dylanaraps/pure-bash-bible#strip-pattern-from-start-of-string
-    printf '%s\n' "${1##$2}"
-}
-
 lines() {
     mapfile -tn 0 lines < "$1"
     printf '%s\n' "${#lines[@]}"
@@ -32,23 +27,11 @@ longest_line() {
     printf '%s\n' "$max"
 }
 
-get_term_size() {
-    # POSIX alternative to 'checkwinsize'.
-    read -r LINES COLUMNS < <(stty -F /dev/tty size)
-
-}
-
-# navigate() {
-#     case "$1" in
-#         "j") 
-# }
-
 display() {
     # 1 - slide contents
     # 2 - slide name
 
     slide_contents="$1"
-    # slide_name="$(lstrip $2 "[0-9]-")"
 
     # Hides the cursor.
     printf '\e[?25l'
@@ -80,13 +63,15 @@ display() {
 main() {
 
     slides_dir="${1:-./}"
-    slides=("$slides_dir"*)
+    slides=("$slides_dir"/[0-9]*.txt)
     i=0
     while true; do
-        if [ "$i" -gt "$((${#slides[@]} - 1))" ]; then
+        if [ "$i" -gt "$((${#slides[@]}--))" ]; then
             printf '\e[?25h'
             exit;
         fi
+
+        # Navigate on j/k/n/p and quit on q.
         display "$(<${slides[$i]})" "${slides[$i]}"
         read -rsn1 input
         case "$input" in 
@@ -97,6 +82,7 @@ main() {
                 ((--i))
                 ;;
             "q")
+                # Return the cursor on exit.
                 printf '\e[?25h'
                 exit
                 ;;
