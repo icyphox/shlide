@@ -66,10 +66,15 @@ main() {
     slides=("$slides_dir"/[0-9]*.txt)
     i=0
     while true; do
-        if [ "$i" -gt "$((${#slides[@]} - 1))" ]; then
+
+        # Exit after last slide.
+        [[ "$i" -gt "$((${#slides[@]} - 1))" ]] && {
             printf '\e[?25h'
-            exit;
-        fi
+            exit
+        }
+
+        # Don't go below 0.
+        [[ "$i" -lt 0 ]] && i=0
 
         # Navigate on j/k/n/p and quit on q.
         display "$(<${slides[$i]})" "${slides[$i]}"
