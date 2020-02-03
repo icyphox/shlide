@@ -4,24 +4,24 @@
 # Each slide is a textfile under path/to/slides
 
 # Color definitions.
-BLK="\e[38;5;30m"
-RED="\e[38;5;31m"
-GRN="\e[38;5;32m"
-YLW="\e[38;5;33m"
-BLU="\e[38;5;34m"
-PUR="\e[38;5;35m"
-CYN="\e[38;5;36m"
-RST="\e[0m"
+export BLK="\e[38;5;30m"
+export RED="\e[38;5;31m"
+export GRN="\e[38;5;32m"
+export YLW="\e[38;5;33m"
+export BLU="\e[38;5;34m"
+export PUR="\e[38;5;35m"
+export CYN="\e[38;5;36m"
+export RST="\e[0m"
 
 # Other formatting.
-BLD="\e[1m"
-DIM="\e[2m"
-ITA="\e[3m"
-UND="\e[4m"
-FLS="\e[5m"
-REV="\e[7m"
-INV="\e[8m"
-STR="\e[9m"
+export BLD="\e[1m"
+export DIM="\e[2m"
+export ITA="\e[3m"
+export UND="\e[4m"
+export FLS="\e[5m"
+export REV="\e[7m"
+export INV="\e[8m"
+export STR="\e[9m"
 
 lines() {
     mapfile -tn 0 lines < "$1"
@@ -32,7 +32,7 @@ longest_line() {
     max=0 
     local IFS=
     while read -r line; do
-        l=$(ansi_filter $(colorify "$line"))
+        l=$(ansi_filter "$(colorify "$line")")
         if [ "${#l}" -gt "$max" ]; then max="${#l}"; fi
     done < "$1"
     printf '%s\n' "$max"
@@ -40,6 +40,7 @@ longest_line() {
 
 colorify() {
     # 'eval' hack to achieve substitution for colors.
+    # Exclude SC2154.
     eval "declare dummy=\"$1\""
     printf '%b' "$dummy"
 }
@@ -48,7 +49,7 @@ colorify() {
 shopt -s extglob
 ansi_filter() {
     local IFS=
-    echo "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
+    printf '%s' "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
     #" A little fix to prevent vim syntax highlighting from breaking.
 }
 
@@ -79,8 +80,8 @@ display() {
     width=$(longest_line "$2")
 
     # Rough estimates for the true center.
-    ((l=$LINES/2 - $height/2))
-    ((c=$COLUMNS/2 - $width/2))
+    ((l=LINES/2 - height/2))
+    ((c=COLUMNS/2 - width/2))
 
     printf '\e[%s;%sH' "$l" "$c"
 
@@ -96,7 +97,7 @@ display() {
         esac
         # Move down and back after each print.
         l=$(ansi_filter "$l")
-        printf '\e[%sD\e[B' "$((${#l} - $reduce))"
+        printf '\e[%sD\e[B' "$((${#l} - reduce))"
     done <<< "$slide_contents"
 
 }
@@ -109,8 +110,8 @@ die() {
 
 display_end() {
     read -r LINES COLUMNS < <(stty -F /dev/tty size)
-    ((l=$LINES/2))
-    ((c=$COLUMNS/2 - 8))
+    ((l=LINES/2))
+    ((c=COLUMNS/2 - 8))
     printf '\e[2J'
     printf '\e[0;%sH' "$c"
     printf 'END. Press q to quit.'
@@ -146,7 +147,7 @@ main() {
         [[ "$i" -lt 0 ]] && i=0
 
         # Navigate on j/k/n/p and quit on q.
-        display "$(<${slides[$i]})" "${slides[$i]}" "$i" "${#slides[@]}"
+        display "$(<"${slides[$i]}")" "${slides[$i]}" "$i" "${#slides[@]}"
         read -rsn1 input
         case "$input" in 
             "j"|"n")
