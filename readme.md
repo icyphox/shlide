@@ -1,7 +1,7 @@
 # shlide
 > a slide deck presentation tool written in pure bash
 
-![scrot](https://x.icyphox.sh/NBq.png)
+![scrot](https://files.nerdypepper.tech/k7.png)
 
 ## Features
 
@@ -42,23 +42,27 @@ A full list of formatting options are below:
 
 **Colors**
 
-`BLK` black
-`RED` red
-`GRN` green
-`YLW` yellow
-`BLU` blue
-`PUR` purple
-`CYN` cyan
-`RST` reset
+|Key|Effect |
+|-|-|
+| `BLK` | black |
+| `RED` | red |
+| `GRN` | green |
+| `YLW` | yellow |
+| `BLU` | blue |
+| `PUR` | purple |
+| `CYN` | cyan |
+| `RST` | reset |
 
 **Styles**
 
-`BLD` bold
-`DIM` dim
-`ITA` italics
-`UND` underline 
-`FLS` flashing
-`REV` reverse
-`INV` invert
-`STR` strikethrough
+|Key|Effect |
+|-|-|
+| `BLD` | bold |
+| `DIM` | dim |
+| `ITA` | italics |
+| `UND` | underline  |
+| `FLS` | flashing |
+| `REV` | reverse |
+| `INV` | invert |
+| `STR` | strikethrough |
 
