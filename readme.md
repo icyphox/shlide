@@ -23,7 +23,13 @@ $ touch deck/2-another.txt
 # so on
 ```
 
-### Formatting
+Finally, run:
+
+```shell
+$ shlide deck/
+```
+
+## Formatting
 
 Slide content can be formatted like so:
 
@@ -40,7 +46,7 @@ Welcome to ${GRN}shlide${RST}. ${STR}Here${RST} are a few bullet points:
 
 A full list of formatting options are below:
 
-**Colors**
+### Colors
 
 |Key|Effect |
 |-|-|
@@ -53,7 +59,7 @@ A full list of formatting options are below:
 | `CYN` | cyan |
 | `RST` | reset |
 
-**Styles**
+### Styles
 
 |Key|Effect |
 |-|-|
