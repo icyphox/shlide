@@ -1,7 +1,7 @@
 # shlide
 > a slide deck presentation tool written in pure bash
 
-![scrot](https://files.nerdypepper.tech/k7.png)
+![scrot](https://u.peppe.rs/k7.png)
 
 ## Features
 
