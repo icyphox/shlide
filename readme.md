@@ -42,6 +42,8 @@ A full list of formatting options are below:
 
 **Colors**
 
+|Key|Effect |
+|-|-|
 | `BLK` | black |
 | `RED` | red |
 | `GRN` | green |
@@ -53,6 +55,8 @@ A full list of formatting options are below:
 
 **Styles**
 
+|Key|Effect |
+|-|-|
 | `BLD` | bold |
 | `DIM` | dim |
 | `ITA` | italics |
