@@ -151,7 +151,7 @@ main() {
         display "$(<"${slides[$i]}")" "${slides[$i]}" "$i" "${#slides[@]}"
         read -rsn1 input
         case "$input" in 
-            "j"|"n")
+            "j"|"n"|"")
                 ((++i))
                 ;;
             "k"|"p")
