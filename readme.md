@@ -10,6 +10,10 @@
 - Text color and style formatting. 
 - Pure bash.
 
+## Requirements
+
+- `bash 4+`
+
 ## Usage
 
 Create a directory for your slides. Name each slide starting with

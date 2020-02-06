@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-# 
-# Usage: shlide path/to/slides/
-# Each slide is a textfile under path/to/slides
+# shellcheck disable=2154
+#
+# shlide - a slide deck presentation tool written in pure bash
+# https://github.com/icyphox/shlide
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2020 Anirudh Oppiliappan <x@icyphox.sh>
 
 # Color definitions.
 export BLK="\e[38;5;30m"
@@ -62,20 +67,20 @@ display() {
 
     slide_contents="$1"
 
-    # Hides the cursor.
+    # Hide the cursor.
     printf '\e[?25l'
 
     # Clear the screen.
     printf '\e[2J'
 
-    # Get screen size
-    shopt -s checkwinsize; (:;:)
+    # Get screen size.
+    read -r LINES COLUMNS < <(stty -F /dev/tty size)
 
-    # Write slide number at bottom left
+    # Write slide number at bottom left.
     printf '\e[H'
     printf '\e[%sB%s/%s' "$LINES" "$(($3+1))" "$4"
 
-    # Custom calculations to center text
+    # Custom calculations to center text.
     height=$(lines "$2")
     width=$(longest_line "$2")
 
@@ -109,7 +114,6 @@ die() {
 }
 
 display_end() {
-    read -r LINES COLUMNS < <(stty -F /dev/tty size)
     ((l=LINES/2))
     ((c=COLUMNS/2 - 8))
     printf '\e[2J'
@@ -129,7 +133,7 @@ main() {
         # Capture Ctrl+C.
         trap 'die' INT
 
-        # Display END reached prompt, and then exit
+        # Display END reached prompt, and then exit.
         [[ "$i" -eq "${#slides[@]}" ]] && {
             display_end
             read -rsn1 input
