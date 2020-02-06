@@ -7,6 +7,7 @@
 
 - All slides are plain-text files. 
 - Navigation using `j` / `k` or `n` / `p`.
+- You can also navigate to the next slide using `SPACE` or `ENTER`.
 - Text color and style formatting. 
 - Pure bash.
 
