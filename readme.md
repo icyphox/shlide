@@ -1,12 +1,13 @@
 # shlide
 > a slide deck presentation tool written in pure bash
 
-![scrot](https://files.nerdypepper.tech/k7.png)
+![scrot](https://u.peppe.rs/k7.png)
 
 ## Features
 
 - All slides are plain-text files. 
 - Navigation using `j` / `k` or `n` / `p`.
+- You can also navigate to the next slide using `SPACE` or `ENTER`.
 - Text color and style formatting. 
 - Pure bash.
 

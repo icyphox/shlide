@@ -51,11 +51,12 @@ colorify() {
 }
 
 # Filter out color sequences.
-shopt -s extglob
 ansi_filter() {
+    shopt -s extglob
     local IFS=
     printf '%s' "${1//$'\e'[\[(]*([0-9;])[@-n]/}"
     #" A little fix to prevent vim syntax highlighting from breaking.
+    shopt -u extglob
 }
 
 
@@ -154,7 +155,7 @@ main() {
         display "$(<"${slides[$i]}")" "${slides[$i]}" "$i" "${#slides[@]}"
         read -rsn1 input
         case "$input" in 
-            "j"|"n")
+            "j"|"n"|"")
                 ((++i))
                 ;;
             "k"|"p")
