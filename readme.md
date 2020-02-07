@@ -6,8 +6,7 @@
 ## Features
 
 - All slides are plain-text files. 
-- Navigation using `j` / `k` or `n` / `p`.
-- You can also navigate to the next slide using `SPACE` or `ENTER`.
+- Navigation using `j` / `k`, `n` / `p` and `space` / `enter` (only forward).
 - Text color and style formatting. 
 - Pure bash.
 
@@ -27,6 +26,9 @@ $ touch deck/2-another.txt
 
 # so on
 ```
+
+**Note**: Make sure to prefix the first 9 slides with a `0` (`01-foo.txt`, `02-bar.txt` ...),
+if you have more than 10 slides.
 
 Finally, run:
 
