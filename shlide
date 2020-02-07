@@ -9,13 +9,13 @@
 # Copyright (c) 2020 Anirudh Oppiliappan <x@icyphox.sh>
 
 # Color definitions.
-export BLK="\e[38;5;30m"
-export RED="\e[38;5;31m"
-export GRN="\e[38;5;32m"
-export YLW="\e[38;5;33m"
-export BLU="\e[38;5;34m"
-export PUR="\e[38;5;35m"
-export CYN="\e[38;5;36m"
+export BLK="\e[30m"
+export RED="\e[31m"
+export GRN="\e[32m"
+export YLW="\e[33m"
+export BLU="\e[34m"
+export PUR="\e[35m"
+export CYN="\e[36m"
 export RST="\e[0m"
 
 # Other formatting.
