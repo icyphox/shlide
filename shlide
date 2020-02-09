@@ -135,31 +135,24 @@ main() {
         # Capture Ctrl+C.
         trap 'die' INT
 
-        # Display END reached prompt, and then exit.
-        [[ "$i" -eq "$total" ]] && {
-            display_end
-            read -rsn1 input
-            case "$input" in
-                "j"|"n"|"q")
-                    die
-                    ;;
-                *)
-                    ((i=0))
-                    ;;
-            esac
-        }
-
         # Don't go below 0.
         [[ "$i" -lt 0 ]] && i=0
 
-        # Navigate on j/k/n/p and quit on q.
-        display "$(<"${slides[$i]}")" "${slides[$i]}" "$i" "$total"
+        # Display END reached prompt, and then exit.
+        if [[ "$i" -eq "$total" ]]; then 
+            display_end
+        else
+            display "$(<"${slides[$i]}")" "${slides[$i]}" "$i" "$total"
+        fi
+
+        # Navigation
         read -rsn1 input
-        case "$input" in 
-            "j"|"n"|"")
+        case "$input" in
+            "j"|"n"|""|";")
+                [[ "$i" -eq "$total" ]] && die
                 ((++i))
                 ;;
-            "k"|"p")
+            "k"|"p"|""|",")
                 ((--i))
                 ;;
             "0")
