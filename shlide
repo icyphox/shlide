@@ -165,6 +165,9 @@ main() {
                 # Return the cursor on exit.
                 die
                 ;;
+            *)
+                # Reloads the slide
+                ;;
         esac
     done
 
