@@ -6,7 +6,7 @@
 ## Features
 
 - All slides are plain-text files. 
-- Navigation using `j` / `k`, `n` / `p` and `space` / `enter` (only forward).
+- Vim like navigation.
 - Text color and style formatting. 
 - Pure bash.
 
@@ -35,6 +35,14 @@ Finally, run:
 ```shell
 $ shlide deck/
 ```
+
+## Controls
+
+- Next slide: `j`, `n`, ';', `space`, 'enter'
+- Previous slide: `k`, `p`, ',', `backspace`
+- Jump to first slide: `0`
+- Jump to last slide: `G`
+- Quit: `q`
 
 ## Formatting
 
