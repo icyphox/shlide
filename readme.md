@@ -38,8 +38,8 @@ $ shlide deck/
 
 ## Controls
 
-- Next slide: `j`, `n`, ';', `space`, 'enter'
-- Previous slide: `k`, `p`, ',', `backspace`
+- Next slide: `j`, `n`, `;`, `space`, 'enter'
+- Previous slide: `k`, `p`, `,`, `backspace`
 - Jump to first slide: `0`
 - Jump to last slide: `G`
 - Quit: `q`
