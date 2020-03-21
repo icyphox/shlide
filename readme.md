@@ -14,6 +14,12 @@
 
 - `bash 4+`
 
+## SetUp
+
+```
+$ sudo make -B
+```
+
 ## Usage
 
 Create a directory for your slides. Name each slide starting with
