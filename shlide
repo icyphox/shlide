@@ -75,11 +75,7 @@ display() {
     printf '\e[2J'
 
     # Get screen size.
-    case "$OSTYPE" in
-        "darwin"*) read -r LINES COLUMNS < <(stty -f /dev/tty size) ;;
-        "openbsd"*) shopt -s checkwinsize; (:;:) ;;
-        *) read -r LINES COLUMNS < <(stty -F /dev/tty size) ;;
-    esac
+    shopt -s checkwinsize; (:;:)
 
     # Write slide number at bottom left.
     printf '\e[H'
