@@ -111,6 +111,7 @@ display() {
 die() {
     printf '\e[2J'
     printf '\e[?25h'
+    printf '\e[0H'
     exit 0
 }
 
